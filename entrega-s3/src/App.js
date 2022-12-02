@@ -1,5 +1,14 @@
+import { RegisterForm } from "./pages/RegisterPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
 function App() {
-  return <h1>começa isso logo </h1>;
+  return (
+    <>
+      <ToastContainer />
+      <RegisterForm />
+    </>
+  );
 }
 
 export default App;
