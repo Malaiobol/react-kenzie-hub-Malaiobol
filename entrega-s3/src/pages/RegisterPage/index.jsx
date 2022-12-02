@@ -50,7 +50,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div>
+    <>
       <Header />
       <StyledForm onSubmit={handleSubmit(submit)} noValidate>
         <div>
@@ -59,7 +59,6 @@ export const RegisterForm = () => {
             <p>Rápido e grátis, vamos nessa</p>
           </span>
         </div>
-
         <Input
           id="name"
           label="Nome"
@@ -68,7 +67,6 @@ export const RegisterForm = () => {
           register={register("name")}
           error={errors.name?.message && <small>{errors.name.message}</small>}
         />
-
         <Input
           id="email"
           label="Email"
@@ -77,7 +75,6 @@ export const RegisterForm = () => {
           register={register("email")}
           error={errors.email?.message && <small>{errors.email.message}</small>}
         />
-
         <Input
           id="password"
           label="Senha"
@@ -88,7 +85,6 @@ export const RegisterForm = () => {
             errors.password?.message && <small>{errors.password.message}</small>
           }
         />
-
         <Input
           id="password"
           label="Senha"
@@ -114,7 +110,6 @@ export const RegisterForm = () => {
             errors.contact?.message && <small>{errors.contact.message}</small>
           }
         />
-
         <label htmlFor="course_module">Selecione o módulo</label>
         <select {...register("course_module")}>
           <option value="">Escolha o módulo</option>
@@ -130,6 +125,6 @@ export const RegisterForm = () => {
           {loading ? "Cadastrando..." : "Cadastrar"}
         </button>
       </StyledForm>
-    </div>
+    </>
   );
 };
