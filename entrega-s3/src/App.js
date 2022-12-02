@@ -1,5 +1,7 @@
+import { RegisterForm } from "./pages/RegisterPage";
+
 function App() {
-  return <h1>começa isso logo</h1>;
+  return <RegisterForm />;
 }
 
 export default App;
