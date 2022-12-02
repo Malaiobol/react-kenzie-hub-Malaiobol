@@ -13,7 +13,7 @@ export const StyledHeader = styled.header`
     color: var(--colorPrimary);
   }
 
-  button {
+  a {
     background-color: var(--colorGrey3);
     color: var(--colorGrey0);
 
@@ -21,8 +21,13 @@ export const StyledHeader = styled.header`
     font-size: 0.75rem;
     line-height: 28px;
 
-    padding: 0px 16px;
+    padding: 8px 16px;
     border: solid 2px var(--colorGrey3);
     border-radius: 4px;
+  }
+
+  a:hover {
+    background-color: var(--colorGrey2);
+    border: solid 2px var(--colorGrey2);
   }
 `;

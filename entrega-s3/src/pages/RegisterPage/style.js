@@ -88,13 +88,19 @@ export const StyledForm = styled.form`
   }
 
   button {
-    color: var(--colorGrey0);
-
     height: 48px;
     width: 100%;
 
-    background-color: var(--colorPrimaryDisabled);
-    border: solid 2px var(--colorPrimaryDisabled);
+    color: var(--colorGrey0);
+    background-color: var(--colorPrimary);
+    border: solid 2px var(--colorPrimary);
     border-radius: 4px;
+  }
+
+  button:hover {
+    background-color: var(--colorPrimary);
+    border: solid 2px var(--colorPrimary);
+    background-color: var(--colorHalfPrimary);
+    border: solid 2px var(--colorHalfPrimary);
   }
 `;

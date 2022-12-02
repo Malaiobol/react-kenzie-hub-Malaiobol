@@ -24,8 +24,8 @@ export default createGlobalStyle`
     }
 
     :root{
-        --colorPrimary: #FF577F;
-        --colorHalfPrimary: #FF427F opacity: 0.5;
+        --colorPrimary: #FF427F;
+        --colorHalfPrimary: #FF577F;
         --colorPrimaryDisabled: #59323F;
 
         --colorGrey4:  #121214;
