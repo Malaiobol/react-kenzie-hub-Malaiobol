@@ -15,9 +15,16 @@ export const registerSchema = yup.object().shape({
   password: yup
     .string()
     .required("A senha é obrigatória!")
-    .matches(/^(?=.*?[A-Z])/, "A senha requer no uma letra maiúscula.")
-    .matches(/^(?=.*?[a-z])/, "A senha requer no uma letra minúscula.")
-    .min(8, "A senha requer no mínimo um número de 8 caracteres."),
+    .matches(/(?=.*?[A-Z])/, "A senha requer no minimo uma letra maiúscula.")
+    .matches(/(?=.*?[a-z])/, "A senha requer no minimo uma letra minúscula.")
+    .min(6, "A senha requer no mínimo um número de 8 caracteres."),
 
-  module: yup.string().required("Selecione um módulo"),
+  contact: yup.number().required("O número é obrigatório"),
+
+  bio: yup
+    .string()
+    .min(10, "Sua bio precisa de no mínimo 10 caracteres!")
+    .max(1200, "Sua bio pode ter no máximo 1200 caracteres"),
+
+  course_module: yup.string().required("Selecione um módulo"),
 });

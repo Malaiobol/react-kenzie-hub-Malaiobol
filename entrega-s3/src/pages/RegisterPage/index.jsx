@@ -3,18 +3,49 @@ import { registerSchema } from "./registerSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { StyledForm } from "./style";
 import { Header } from "../../components/Header";
+import { useState } from "react";
+import { api } from "../../services/api";
+import { toast } from "react-toastify";
 
 export const RegisterForm = () => {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
+    mode: "onBlur",
     resolver: yupResolver(registerSchema),
   });
 
+  const newUserRegister = async (formData) => {
+    try {
+      setLoading(true);
+      await api.post("/users", formData);
+      toast.success(`Olá! ${formData.name} você foi cadastrado(a)!`, {
+        autoClose: 5000,
+      });
+    } catch (err) {
+      console.log(err);
+      toast.error("Usuário não cadastrado, verifique suas informações.", {
+        autoClose: 5000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const submit = (data) => {
-    console.log(data);
+    newUserRegister(data);
+    reset({
+      name: "",
+      email: "",
+      password: "",
+      bio: "",
+      contact: "",
+    });
   };
 
   return (
@@ -52,23 +83,29 @@ export const RegisterForm = () => {
         <input
           type="password"
           placeholder="Digite novamente sua senha"
-          //   {...register("password")}
+          {...register("password")}
         />
-        <label htmlFor="about">Bio</label>
+        <label htmlFor="bio">Bio</label>
+        <input type="text" placeholder="Fale sobre você" {...register("bio")} />
+        {errors.bio?.message && <p>{errors.bio.message}</p>}
+        <label htmlFor="contact">Contato</label>
         <input
           type="text"
-          placeholder="Fale sobre você (opcional)"
-          {...register("about")}
+          placeholder="(DD) 0000-0000"
+          {...register("contact")}
         />
-        <label htmlFor="module">Selecione o módulo</label>
-        <select {...register("module")}>
+        {errors.contact?.message && <p>{errors.contact.message}</p>}
+        <label htmlFor="course_module">Selecione o módulo</label>
+        <select {...register("course_module")}>
           <option value="">Escolha o módulo</option>
           <option value="First">Primeiro módulo</option>
           <option value="Second">Segundo módulo</option>
           <option value="Third">Terceiro módulo</option>
         </select>
-        {errors.module?.message && <p>{errors.module.message}</p>}
-        <button type="submit">Cadastrar</button>
+        {errors.course_module?.message && <p>{errors.course_module.message}</p>}
+        <button type="submit" disabled={loading}>
+          {loading ? "Cadastrando..." : "Cadastrar"}
+        </button>
       </StyledForm>
     </div>
   );
