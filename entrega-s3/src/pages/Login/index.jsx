@@ -15,6 +15,7 @@ export const LoginForm = () => {
   const [loading, setLoading] = useState(false);
 
   const {
+    register,
     handleSubmit,
     formState: { errors },
     reset,
@@ -30,7 +31,7 @@ export const LoginForm = () => {
       toast.success("Sessão iniciada com sucesso.", {
         autoClose: 5000,
       });
-      setTimeout(window.location("/home", 5000));
+      console.log("agora troque de página");
     } catch (err) {
       console.log(err);
       toast.error("Email ou senha inválidos, verifique suas credenciais.", {
@@ -42,11 +43,10 @@ export const LoginForm = () => {
   };
 
   const login = (data) => {
-    console.log(data);
     loginRequest(data);
     reset({
-      name: "",
       email: "",
+      password: "",
     });
   };
 
@@ -60,6 +60,7 @@ export const LoginForm = () => {
           type="email"
           label="email"
           placeholder="Digite seu email"
+          register={register("email")}
           error={errors.email?.message && <p>{errors.email.message}</p>}
         />
         <Input
@@ -67,6 +68,7 @@ export const LoginForm = () => {
           type="password"
           label="password"
           placeholder="Digite sua senha"
+          register={register("password")}
           error={errors.password?.message && <p>{errors.password.message}</p>}
         />
         <div>
