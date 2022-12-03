@@ -1,11 +1,12 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "./registerSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { StyledForm } from "./style";
 import { Header } from "../../components/Header";
-import { useState } from "react";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
+import { Input } from "../../components/Input";
 
 export const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
@@ -50,7 +51,7 @@ export const RegisterForm = () => {
 
   return (
     <div>
-      <Header />
+      <Header page={"/"} name={"Voltar"} />
       <StyledForm onSubmit={handleSubmit(submit)} noValidate>
         <div>
           <h2>Crie sua conta</h2>
@@ -58,43 +59,63 @@ export const RegisterForm = () => {
             <p>Rápido e grátis, vamos nessa</p>
           </span>
         </div>
-        <label htmlFor="name">Nome</label>
-        <input
+
+        <Input
+          id="name"
+          label="Nome"
           type="text"
           placeholder="Digite aqui seu nome"
-          {...register("name")}
+          register={register("name")}
+          error={errors.name?.message && <small>{errors.name.message}</small>}
         />
-        {errors.name?.message && <p>{errors.name.message}</p>}
-        <label htmlFor="email">Email</label>
-        <input
+
+        <Input
+          id="email"
+          label="Email"
           type="email"
-          placeholder="Digite aqui seu email válido"
-          {...register("email")}
+          placeholder="Digite aqui seu email"
+          register={register("email")}
+          error={errors.email?.message && <small>{errors.email.message}</small>}
         />
-        {errors.email?.message && <p>{errors.email.message}</p>}
-        <label htmlFor="password">Senha</label>
-        <input
+
+        <Input
+          id="password"
+          label="Senha"
           type="password"
           placeholder="Digite aqui sua senha"
-          {...register("password")}
+          register={register("password")}
+          error={
+            errors.password?.message && <small>{errors.password.message}</small>
+          }
         />
-        {errors.password?.message && <p>{errors.password.message}</p>}
-        <label>Confirmar Senha</label>
-        <input
+
+        <Input
+          id="password"
+          label="Senha"
           type="password"
-          placeholder="Digite novamente sua senha"
-          {...register("password")}
+          placeholder="Confirme sua senha"
         />
-        <label htmlFor="bio">Bio</label>
-        <input type="text" placeholder="Fale sobre você" {...register("bio")} />
-        {errors.bio?.message && <p>{errors.bio.message}</p>}
-        <label htmlFor="contact">Contato</label>
-        <input
+
+        <Input
+          id="bio"
+          label="Bio"
+          type="text"
+          placeholder="Fale um pouco sobre você"
+          register={register("bio")}
+          error={errors.bio?.message && <small>{errors.bio.message}</small>}
+        />
+
+        <Input
+          id="contact"
+          label="Contato"
           type="text"
           placeholder="(DD) 0000-0000"
-          {...register("contact")}
+          register={register("contact")}
+          error={
+            errors.contact?.message && <small>{errors.contact.message}</small>
+          }
         />
-        {errors.contact?.message && <p>{errors.contact.message}</p>}
+
         <label htmlFor="course_module">Selecione o módulo</label>
         <select {...register("course_module")}>
           <option value="">Escolha o módulo</option>
@@ -102,7 +123,10 @@ export const RegisterForm = () => {
           <option value="Second">Segundo módulo</option>
           <option value="Third">Terceiro módulo</option>
         </select>
-        {errors.course_module?.message && <p>{errors.course_module.message}</p>}
+        {errors.course_module?.message && (
+          <small>{errors.course_module.message}</small>
+        )}
+
         <button type="submit" disabled={loading}>
           {loading ? "Cadastrando..." : "Cadastrar"}
         </button>

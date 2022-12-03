@@ -1,12 +1,14 @@
-import { RegisterForm } from "./pages/RegisterPage";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
+import { Mainroutes as Routes } from "./routes";
+import GlobalStyles from "./Styles/GlobalStyles";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState("");
+
   return (
     <>
-      <ToastContainer />
-      <RegisterForm />
+      <GlobalStyles />
+      <Routes setUser={setUser} user={user} />
     </>
   );
 }
