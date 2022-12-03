@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { registerSchema } from "./registerSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { StyledForm } from "./style";
 import { Header } from "../../components/Header";
-import { useState } from "react";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { Input } from "../../components/Input";
@@ -95,6 +95,7 @@ export const RegisterForm = () => {
           type="password"
           placeholder="Confirme sua senha"
         />
+
         <Input
           id="bio"
           label="Bio"
