@@ -7,11 +7,11 @@ import { StyledForm } from "./style";
 import { loginSchema } from "./loginSchema";
 
 import { Input } from "../../components/Input";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Logo } from "../../Styles/Logo";
 import { api } from "../../services/api";
 
-export const LoginForm = ({ setUser }) => {
+export const LoginForm = ({ setUser, setLogin }) => {
   const [loading, setLoading] = useState(false);
 
   const {
@@ -40,7 +40,7 @@ export const LoginForm = ({ setUser }) => {
       });
 
       setTimeout(() => {
-        redirect("/home");
+        setLogin(true);
       }, 5000);
     } catch (err) {
       console.log(err);
