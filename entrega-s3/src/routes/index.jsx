@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import { RegisterForm } from "../pages/RegisterPage";
-import { LoginForm } from "../pages/Login";
+import { LoginForm } from "../pages/LoginPage";
 
-export const Mainroutes = () => {
+export const Mainroutes = ({ setUser, user }) => {
   return (
     <Routes>
-      <Route path="/" element={<LoginForm />} />
+      <Route path="/" element={<LoginForm setUser={setUser} />} />
       <Route path="/register" element={<RegisterForm />} />
-      <Route path="/main" />
+      <Route path="/home" />
     </Routes>
   );
 };
