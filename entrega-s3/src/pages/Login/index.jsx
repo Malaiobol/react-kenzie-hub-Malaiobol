@@ -7,12 +7,19 @@ import { StyledForm } from "./style";
 import { loginSchema } from "./loginSchema";
 
 import { Input } from "../../components/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "../../Styles/Logo";
 import { api } from "../../services/api";
 
 export const LoginForm = () => {
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    email: "",
+    course_module: "",
+    bio: "",
+  });
 
   const {
     register,
@@ -27,11 +34,17 @@ export const LoginForm = () => {
   const loginRequest = async (formData) => {
     try {
       setLoading(true);
-      await api.post("/sessions", formData);
+
+      const response = await api.post("/sessions", formData);
+      const actualUser = await response.data.user;
+      setUser(actualUser);
+
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("userId", response.data.user.id);
+
       toast.success("Sessão iniciada com sucesso.", {
         autoClose: 5000,
       });
-      console.log("agora troque de página");
     } catch (err) {
       console.log(err);
       toast.error("Email ou senha inválidos, verifique suas credenciais.", {

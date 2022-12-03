@@ -19,6 +19,11 @@ export const registerSchema = yup.object().shape({
     .matches(/(?=.*?[a-z])/, "A senha requer no minimo uma letra minúscula.")
     .min(6, "A senha requer no mínimo um número de 8 caracteres."),
 
+  passwordConfirmation: yup
+    .string()
+    .required("Confirmação de senha necessária.")
+    .oneOf([yup.ref("password")], "As senhas não coincidem"),
+
   contact: yup.number().required("O número é obrigatório"),
 
   bio: yup

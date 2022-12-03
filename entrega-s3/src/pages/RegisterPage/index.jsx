@@ -25,7 +25,7 @@ export const RegisterForm = () => {
     try {
       setLoading(true);
       await api.post("/users", formData);
-      toast.success(`Olá! ${formData.name} você foi cadastrado(a)!`, {
+      toast.success(`Olá ${formData.name} você foi cadastrado(a)!`, {
         autoClose: 5000,
       });
     } catch (err) {
@@ -86,10 +86,16 @@ export const RegisterForm = () => {
           }
         />
         <Input
-          id="password"
-          label="Senha"
+          id="passwordConfirmation"
+          label="Confirmar senha"
           type="password"
           placeholder="Confirme sua senha"
+          register={register("passwordConfirmation")}
+          error={
+            errors.passwordConfirmation?.message && (
+              <small>{errors.passwordConfirmation.message}</small>
+            )
+          }
         />
 
         <Input
