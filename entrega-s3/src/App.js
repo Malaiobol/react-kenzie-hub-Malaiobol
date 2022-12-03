@@ -1,5 +1,16 @@
+import { Mainroutes as Routes } from "./routes";
+import GlobalStyles from "./Styles/GlobalStyles";
+import { useState } from "react";
+
 function App() {
-  return <h1>começa isso logo</h1>;
+  const [user, setUser] = useState("");
+
+  return (
+    <>
+      <GlobalStyles />
+      <Routes setUser={setUser} user={user} />
+    </>
+  );
 }
 
 export default App;
