@@ -25,7 +25,7 @@ export const RegisterForm = () => {
     try {
       setLoading(true);
       await api.post("/users", formData);
-      toast.success(`Olá! ${formData.name} você foi cadastrado(a)!`, {
+      toast.success(`Olá ${formData.name} você foi cadastrado(a)!`, {
         autoClose: 5000,
       });
     } catch (err) {
@@ -50,7 +50,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div>
+    <>
       <Header page={"/"} name={"Voltar"} />
       <StyledForm onSubmit={handleSubmit(submit)} noValidate>
         <div>
@@ -59,7 +59,6 @@ export const RegisterForm = () => {
             <p>Rápido e grátis, vamos nessa</p>
           </span>
         </div>
-
         <Input
           id="name"
           label="Nome"
@@ -68,7 +67,6 @@ export const RegisterForm = () => {
           register={register("name")}
           error={errors.name?.message && <small>{errors.name.message}</small>}
         />
-
         <Input
           id="email"
           label="Email"
@@ -77,7 +75,6 @@ export const RegisterForm = () => {
           register={register("email")}
           error={errors.email?.message && <small>{errors.email.message}</small>}
         />
-
         <Input
           id="password"
           label="Senha"
@@ -88,12 +85,17 @@ export const RegisterForm = () => {
             errors.password?.message && <small>{errors.password.message}</small>
           }
         />
-
         <Input
-          id="password"
-          label="Senha"
+          id="passwordConfirmation"
+          label="Confirmar senha"
           type="password"
           placeholder="Confirme sua senha"
+          register={register("passwordConfirmation")}
+          error={
+            errors.passwordConfirmation?.message && (
+              <small>{errors.passwordConfirmation.message}</small>
+            )
+          }
         />
 
         <Input
@@ -115,7 +117,6 @@ export const RegisterForm = () => {
             errors.contact?.message && <small>{errors.contact.message}</small>
           }
         />
-
         <label htmlFor="course_module">Selecione o módulo</label>
         <select {...register("course_module")}>
           <option value="">Escolha o módulo</option>
@@ -131,6 +132,6 @@ export const RegisterForm = () => {
           {loading ? "Cadastrando..." : "Cadastrar"}
         </button>
       </StyledForm>
-    </div>
+    </>
   );
 };

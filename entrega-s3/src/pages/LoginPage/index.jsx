@@ -7,12 +7,19 @@ import { StyledForm } from "./style";
 import { loginSchema } from "./loginSchema";
 
 import { Input } from "../../components/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "../../Styles/Logo";
 import { api } from "../../services/api";
 
 export const LoginForm = ({ setUser, setLogin }) => {
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({
+    id: "",
+    name: "",
+    email: "",
+    course_module: "",
+    bio: "",
+  });
 
   const {
     register,
