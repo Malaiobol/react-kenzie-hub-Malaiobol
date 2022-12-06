@@ -7,20 +7,12 @@ import { StyledForm } from "./style";
 import { loginSchema } from "./loginSchema";
 
 import { Input } from "../../components/Input";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Logo } from "../../Styles/Logo";
 import { api } from "../../services/api";
 
 export const LoginForm = ({ setUser, setLogin }) => {
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({
-    id: "",
-    name: "",
-    email: "",
-    course_module: "",
-    bio: "",
-  });
-
   const {
     register,
     handleSubmit,
@@ -34,7 +26,6 @@ export const LoginForm = ({ setUser, setLogin }) => {
   const loginRequest = async (formData) => {
     try {
       setLoading(true);
-
       const response = await api.post("/sessions", formData);
       const actualUser = await response.data.user;
       setUser(actualUser);
@@ -43,12 +34,9 @@ export const LoginForm = ({ setUser, setLogin }) => {
       localStorage.setItem("userId", response.data.user.id);
 
       toast.success("Sessão iniciada com sucesso.", {
-        autoClose: 5000,
+        autoClose: 2000,
       });
-
-      setTimeout(() => {
-        setLogin(true);
-      }, 5000);
+      setLogin(true);
     } catch (err) {
       console.log(err);
       toast.error("Email ou senha inválidos, verifique suas credenciais.", {
@@ -75,7 +63,7 @@ export const LoginForm = ({ setUser, setLogin }) => {
         <Input
           id="email"
           type="email"
-          label="email"
+          label="Email"
           placeholder="Digite seu email"
           register={register("email")}
           error={errors.email?.message && <p>{errors.email.message}</p>}
@@ -83,7 +71,7 @@ export const LoginForm = ({ setUser, setLogin }) => {
         <Input
           id="password"
           type="password"
-          label="password"
+          label="Senha"
           placeholder="Digite sua senha"
           register={register("password")}
           error={errors.password?.message && <p>{errors.password.message}</p>}

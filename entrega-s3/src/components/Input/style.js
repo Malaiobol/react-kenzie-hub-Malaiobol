@@ -10,6 +10,7 @@ export const StyledFieldSet = styled.div`
   }
 
   input {
+    color: #fff;
     margin-top: 20px;
     background-color: var(--colorGrey2);
     width: 330px;
@@ -26,5 +27,9 @@ export const StyledFieldSet = styled.div`
     font-weight: 400;
     font-size: 1rem;
     line-height: 26px;
+  }
+
+  p {
+    position: absolute;
   }
 `;

@@ -7,9 +7,12 @@ import { Header } from "../../components/Header";
 import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { Input } from "../../components/Input";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
+
+  let navigate = useNavigate();
 
   const {
     register,
@@ -26,12 +29,13 @@ export const RegisterForm = () => {
       setLoading(true);
       await api.post("/users", formData);
       toast.success(`Olá ${formData.name} você foi cadastrado(a)!`, {
-        autoClose: 5000,
+        autoClose: 1000,
       });
+      navigate("/");
     } catch (err) {
       console.log(err);
       toast.error("Usuário não cadastrado, verifique suas informações.", {
-        autoClose: 5000,
+        autoClose: 1000,
       });
     } finally {
       setLoading(false);
