@@ -4,9 +4,7 @@ import { Header } from "../../components/Header";
 export const HomePage = ({ user, setLogin }) => {
   const logOut = () => {
     localStorage.clear();
-    setTimeout(() => {
-      setLogin(false);
-    }, 1000);
+    setLogin(false);
   };
 
   return (
