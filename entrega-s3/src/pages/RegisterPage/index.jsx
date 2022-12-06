@@ -51,7 +51,7 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <Header />
+      <Header page={"/"} name={"Voltar"} />
       <StyledForm onSubmit={handleSubmit(submit)} noValidate>
         <div>
           <h2>Crie sua conta</h2>

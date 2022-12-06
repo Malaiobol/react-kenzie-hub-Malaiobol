@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Logo } from "../../Styles/Logo";
 import { api } from "../../services/api";
 
-export const LoginForm = () => {
+export const LoginForm = ({ setUser, setLogin }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     id: "",
@@ -45,6 +45,10 @@ export const LoginForm = () => {
       toast.success("Sessão iniciada com sucesso.", {
         autoClose: 5000,
       });
+
+      setTimeout(() => {
+        setLogin(true);
+      }, 5000);
     } catch (err) {
       console.log(err);
       toast.error("Email ou senha inválidos, verifique suas credenciais.", {
