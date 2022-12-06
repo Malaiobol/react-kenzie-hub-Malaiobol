@@ -55,6 +55,8 @@ export const StyledForm = styled.form`
   }
 
   p {
+    position: relative;
+
     color: var(--colorNegative);
     margin-bottom: 20px;
 
