@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { registerSchema } from "./registerSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { StyledForm } from "./style";
-import { Header } from "../../components/Header";
-import { api } from "../../services/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { registerSchema } from "./registerSchema";
+import { StyledForm } from "./style";
 import { RegisterPopulation } from "./RegisterForm";
+import { Header } from "../../components/Header";
+import { api } from "../../services/api";
 
 export const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,6 @@ export const RegisterPage = () => {
       setLoading(false);
     }
   };
-
   const submit = (data) => {
     newUserRegister(data);
     reset({
