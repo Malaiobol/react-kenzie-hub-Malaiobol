@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const loadUser = async () => {
-      const token = localStorage.getItem("@context-login:userID");
+      const token = localStorage.getItem("@context-login:TOKEN");
 
       if (!token) {
         setLoading(false);
@@ -24,14 +24,19 @@ export const AuthProvider = ({ children }) => {
           },
         });
         setUser(data);
+        navigate("/home");
+        toast.success("Autoverificação feita com sucesso!", {
+          autoClose: 1500,
+        });
       } catch (err) {
+        window.localStorage.clear();
         console.log(err);
       } finally {
         setLoading(false);
       }
     };
     loadUser();
-  }, []);
+  }, [navigate]);
 
   const loginRequest = async (data) => {
     try {

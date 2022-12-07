@@ -2,15 +2,15 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 
 import { StyledMain } from "./style";
+import { Logo } from "../../Styles/Logo";
 import { Header } from "../../components/Header";
 import { AuthContext } from "../../contexts/AuthContext";
-import { Logo } from "../../Styles/Logo";
 
 export const HomePage = () => {
   const { user, setUser, loading } = useContext(AuthContext);
 
   const logOut = () => {
-    localStorage.clear();
+    window.localStorage.clear();
     setUser(null);
   };
 

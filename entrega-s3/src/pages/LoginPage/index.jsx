@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -12,7 +11,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export const LoginForm = () => {
-  const [loading, setLoading] = useState(false);
   const { loginRequest } = useContext(AuthContext);
 
   const {
@@ -28,15 +26,11 @@ export const LoginForm = () => {
   const login = (data) => {
     try {
       loginRequest(data);
-      setLoading(true);
     } finally {
       reset({
         email: "",
         password: "",
       });
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
     }
   };
 
@@ -62,7 +56,7 @@ export const LoginForm = () => {
           error={errors.password?.message && <p>{errors.password.message}</p>}
         />
         <div>
-          <button type="submit">{loading ? "Entrando..." : "Entrar"}</button>
+          <button type="submit">Entrar</button>
         </div>
         <div>
           <small>Ainda não possui uma conta?</small>

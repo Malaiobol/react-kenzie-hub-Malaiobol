@@ -124,9 +124,12 @@ export const RegisterForm = () => {
         <label htmlFor="course_module">Selecione o módulo</label>
         <select {...register("course_module")}>
           <option value="">Escolha o módulo</option>
-          <option value="First">Primeiro módulo</option>
-          <option value="Second">Segundo módulo</option>
-          <option value="Third">Terceiro módulo</option>
+          <option value="First">
+            Primeiro módulo (Introdução ao Frontend)
+          </option>
+          <option value="Second">Segundo módulo (Frontend Avançado)</option>
+          <option value="Third">Terceiro módulo (Introdução ao Backend)</option>
+          <option value="Fourth">Quarto módulo (Backend Avançado)</option>
         </select>
         {errors.course_module?.message && (
           <small>{errors.course_module.message}</small>
