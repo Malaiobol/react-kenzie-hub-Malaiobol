@@ -1,16 +1,20 @@
 import { StyledMain } from "./style";
 import { Header } from "../../components/Header";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
-export const HomePage = ({ user, setLogin }) => {
+export const HomePage = () => {
+  const { user, setUser } = useContext(AuthContext);
+
   const logOut = () => {
     localStorage.clear();
-    setLogin(false);
+    setUser(null);
   };
 
   return (
     <>
       <StyledMain>
-        <Header name={"Sair"} logOut={logOut} />
+        <Header page={"/"} name={"Sair"} logOut={logOut} />
         <div>
           <h2>Olá, {user.name}</h2>
           <small>{user.course_module}</small>

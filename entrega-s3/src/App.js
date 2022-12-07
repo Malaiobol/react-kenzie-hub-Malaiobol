@@ -1,6 +1,7 @@
 import { Mainroutes as Routes } from "./routes";
 import GlobalStyles from "./Styles/GlobalStyles";
 import { useState } from "react";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
   const [user, setUser] = useState("");
@@ -8,7 +9,9 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Routes setUser={setUser} user={user} />
+      <AuthProvider>
+        <Routes setUser={setUser} user={user} />
+      </AuthProvider>
     </>
   );
 }

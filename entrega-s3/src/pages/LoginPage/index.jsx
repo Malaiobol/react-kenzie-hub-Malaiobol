@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { toast } from "react-toastify";
 
 import { StyledForm } from "./style";
 import { loginSchema } from "./loginSchema";
@@ -9,10 +8,13 @@ import { loginSchema } from "./loginSchema";
 import { Input } from "../../components/Input";
 import { Link } from "react-router-dom";
 import { Logo } from "../../Styles/Logo";
-import { api } from "../../services/api";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
-export const LoginForm = ({ setUser, setLogin }) => {
+export const LoginForm = () => {
   const [loading, setLoading] = useState(false);
+  const { loginRequest } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
@@ -23,36 +25,19 @@ export const LoginForm = ({ setUser, setLogin }) => {
     resolver: yupResolver(loginSchema),
   });
 
-  const loginRequest = async (formData) => {
-    try {
-      setLoading(true);
-      const response = await api.post("/sessions", formData);
-      const actualUser = await response.data.user;
-      setUser(actualUser);
-
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("userId", response.data.user.id);
-
-      toast.success("Sessão iniciada com sucesso.", {
-        autoClose: 2000,
-      });
-      setLogin(true);
-    } catch (err) {
-      console.log(err);
-      toast.error("Email ou senha inválidos, verifique suas credenciais.", {
-        autoClose: 5000,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const login = (data) => {
-    loginRequest(data);
-    reset({
-      email: "",
-      password: "",
-    });
+    try {
+      loginRequest(data);
+      setLoading(true);
+    } finally {
+      reset({
+        email: "",
+        password: "",
+      });
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
+    }
   };
 
   return (
