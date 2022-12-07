@@ -1,17 +1,24 @@
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
+
 import { StyledMain } from "./style";
 import { Header } from "../../components/Header";
-import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import { Logo } from "../../Styles/Logo";
 
 export const HomePage = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, loading } = useContext(AuthContext);
 
   const logOut = () => {
     localStorage.clear();
     setUser(null);
   };
 
-  return (
+  if (loading) {
+    return <Logo>Carregando...</Logo>;
+  }
+
+  return user ? (
     <>
       <StyledMain>
         <Header page={"/"} name={"Sair"} logOut={logOut} />
@@ -25,5 +32,7 @@ export const HomePage = () => {
         </section>
       </StyledMain>
     </>
+  ) : (
+    <Navigate to="/" />
   );
 };
