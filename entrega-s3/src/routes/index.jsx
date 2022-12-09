@@ -8,7 +8,7 @@ export const Mainroutes = () => {
   return (
     <Routes>
       <Route path="/" element={<LoginForm />} />
-      <Route element={ProtectedRoutes}>
+      <Route element={<ProtectedRoutes />}>
         <Route path="/home" element={<HomePage />} />
       </Route>
       <Route path="/register" element={<RegisterPage />} />

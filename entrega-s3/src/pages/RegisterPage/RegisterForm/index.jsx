@@ -68,10 +68,16 @@ export const RegisterPopulation = ({ register, errors, loading }) => {
       <label htmlFor="course_module">Selecione o módulo</label>
       <select {...register("course_module")}>
         <option value="">Escolha o módulo</option>
-        <option value="First">Primeiro módulo (Introdução ao Frontend)</option>
-        <option value="Second">Segundo módulo (Frontend Avançado)</option>
-        <option value="Third">Terceiro módulo (Introdução ao Backend)</option>
-        <option value="Fourth">Quarto módulo (Backend Avançado)</option>
+        <option value="Primeiro módulo (Introdução ao Frontend)">
+          Primeiro módulo
+        </option>
+        <option value="Segundo módulo (Frontend Avançado)">
+          Segundo módulo
+        </option>
+        <option value="Terceiro módulo (Introdução ao Backend)">
+          Terceiro módulo
+        </option>
+        <option value="Quarto módulo (Backend Avançado)">Quarto módulo</option>
       </select>
       {errors.course_module?.message && (
         <small>{errors.course_module.message}</small>

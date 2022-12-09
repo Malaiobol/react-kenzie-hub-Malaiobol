@@ -1,17 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "./registerSchema";
 import { StyledForm } from "./style";
 import { RegisterPopulation } from "./RegisterForm";
 import { Header } from "../../components/Header";
-import { api } from "../../services/api";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const RegisterPage = () => {
+  const { newUserRegister } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  let navigate = useNavigate();
 
   const {
     register,
@@ -23,23 +21,6 @@ export const RegisterPage = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const newUserRegister = async (formData) => {
-    try {
-      setLoading(true);
-      await api.post("/users", formData);
-      toast.success(`Olá ${formData.name} você foi cadastrado(a)!`, {
-        autoClose: 1000,
-      });
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-      toast.error("Usuário não cadastrado, verifique suas informações.", {
-        autoClose: 1000,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
   const submit = (data) => {
     newUserRegister(data);
     reset({

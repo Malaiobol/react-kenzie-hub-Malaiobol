@@ -1,36 +1,38 @@
-import { createContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
+import { AuthContext } from "./AuthContext";
 
 export const TechContext = createContext({});
 export const TechProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  const { techList, setTechList } = useContext(AuthContext);
 
-  const token = localStorage.getItem("@context-login:TOKEN");
-  const createTech = async ({ title, status }) => {
+  const createTech = async (data) => {
     try {
-      const resp = await api.post("/users/techs", {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-        body: {
-          title: title,
-          status: status,
-        },
-      });
+      const resp = await api.post("/users/techs", data);
       toast.success("Tecnologia criada com sucesso!", {
         autoClose: 1500,
       });
-      setLoading(true);
-      console.log(resp.data);
+      setTechList([...techList, data]);
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading(false);
+    }
+  };
+
+  const deleteTech = async (id) => {
+    try {
+      api.delete(`/users/techs/${id}`);
+      toast.success("Tecnologia deletada com sucesso!", {
+        autoClose: 1500,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
   return (
-    <TechContext.Provider value={createTech}>{children}</TechContext.Provider>
+    <TechContext.Provider value={{ createTech, deleteTech }}>
+      {children}
+    </TechContext.Provider>
   );
 };

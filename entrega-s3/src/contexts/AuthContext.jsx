@@ -7,6 +7,7 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [techList, setTechList] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,16 +19,12 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       try {
-        const { data } = await api.get("/profile", {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        });
+        api.defaults.headers.common.authorization = `Bearer ${token}`;
+        const { data } = await api.get("/profile");
         setUser(data);
+        let techListArray = data.techs;
+        setTechList(techListArray);
         navigate("/home");
-        toast.success("Autoverificação feita com sucesso!", {
-          autoClose: 1500,
-        });
       } catch (err) {
         window.localStorage.clear();
         console.log(err);
@@ -58,9 +55,36 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const newUserRegister = async (formData) => {
+    try {
+      setLoading(true);
+      await api.post("/users", formData);
+      toast.success(`Olá ${formData.name} você foi cadastrado(a)!`, {
+        autoClose: 1000,
+      });
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      toast.error("Usuário não cadastrado, verifique suas informações.", {
+        autoClose: 1000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ loginRequest, setUser, user, loading, setLoading }}>
+      value={{
+        newUserRegister,
+        loginRequest,
+        setUser,
+        user,
+        setLoading,
+        loading,
+        techList,
+        setTechList,
+      }}>
       {children}
     </AuthContext.Provider>
   );
