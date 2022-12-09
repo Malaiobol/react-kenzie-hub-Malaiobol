@@ -1,35 +1,17 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { RegisterForm } from "../pages/RegisterPage";
+import { Routes, Route } from "react-router-dom";
+import { RegisterPage } from "../pages/RegisterPage";
 import { LoginForm } from "../pages/LoginPage";
 import { HomePage } from "../pages/HomePage";
-import { useState } from "react";
+import { ProtectedRoutes } from "../components/ProtectedRoutes";
 
-export const Mainroutes = ({ setUser, user }) => {
-  const [logged, setLogin] = useState(false);
-
+export const Mainroutes = () => {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          logged ? (
-            <Navigate to="/home" />
-          ) : (
-            <LoginForm setUser={setUser} setLogin={setLogin} />
-          )
-        }
-      />
-      <Route path="/register" element={<RegisterForm />} />
-      <Route
-        path="/home"
-        element={
-          logged ? (
-            <HomePage user={user} setLogin={setLogin} />
-          ) : (
-            <Navigate to="/" />
-          )
-        }
-      />
+      <Route path="/" element={<LoginForm />} />
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/home" element={<HomePage />} />
+      </Route>
+      <Route path="/register" element={<RegisterPage />} />
     </Routes>
   );
 };
